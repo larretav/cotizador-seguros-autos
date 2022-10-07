@@ -1,6 +1,10 @@
-import { MARCAS, PLANES } from "../constants"
+import { MARCAS, PLANES, YEARS } from "@/constants"
+import useCotizador from "@/hooks/useCotizador";
 
 const Formulario = () => {
+
+  const {datos, handleChangeDatos} = useCotizador();
+
   return (
     <>
       <form >
@@ -8,7 +12,9 @@ const Formulario = () => {
           <label className="block mb-3 font-semibold text-gray-400 uppercase">Marca</label>
           <select
             name="marca"
-            className="w-full p-3 bg-white border border-r-gray-200" 
+            className="w-full p-3 bg-white border border-r-gray-200"
+            value={datos.marca}
+            onChange={handleChangeDatos}
           >
             <option value="">-- Selecciona una marca  --</option>
             {
@@ -22,13 +28,15 @@ const Formulario = () => {
         <div className="my-5">
           <label className="block mb-3 font-semibold text-gray-400 uppercase">Año</label>
           <select
-            name="marca"
-            className="w-full p-3 bg-white border border-r-gray-200" 
+            name="year"
+            className="w-full p-3 bg-white border border-r-gray-200"
+            value={datos.year}
+            onChange={handleChangeDatos}
           >
             <option value="">-- Selecciona un año  --</option>
             {
-              MARCAS.map( marca => (
-                <option key={marca.id} value={marca.id}>{marca.nombre}</option>
+              YEARS.map( year => (
+                <option key={year} value={year}>{year}</option>
               ))
             }
           </select>
@@ -42,7 +50,12 @@ const Formulario = () => {
             PLANES.map( plan => (
               <div key={plan.id}>
                 <label className="mr-2">{plan.nombre}</label>
-                <input type="radio" name="plan" value={plan.id} />
+                <input 
+                  type="radio"
+                  name="plan" 
+                  value={plan.id} 
+                  onChange={handleChangeDatos}
+                />
               </div>
             ))
           }

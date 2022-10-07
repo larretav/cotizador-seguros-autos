@@ -5,7 +5,7 @@ export const MARCAS = [
 ]
 
 const YEARMAX = new Date().getFullYear();
-const YEARS = Array.from( new Array(20), (valor, index) => YEARMAX - index );
+export const YEARS = Array.from( new Array(20), (valor, index) => YEARMAX - index );
 
 export const PLANES = [
   { id: 1, nombre: 'Básico' },
