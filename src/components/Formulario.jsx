@@ -1,13 +1,27 @@
 import { MARCAS, PLANES, YEARS } from "@/constants"
 import useCotizador from "@/hooks/useCotizador";
+import Error from "./Error";
 
 const Formulario = () => {
 
-  const {datos, handleChangeDatos} = useCotizador();
+  const {datos, handleChangeDatos, error, setError, cotizadorSeguro} = useCotizador();
+  
+  const handleSubmit = (e) => { 
+    e.preventDefault();
+
+    if(Object.values(datos).includes('')){
+      setError('Error, campos obligatorios');
+      return;
+    }
+
+    setError('');
+
+    cotizadorSeguro();
+  }
 
   return (
     <>
-      <form >
+      <form onSubmit={handleSubmit}>
         <div className="my-5">
           <label className="block mb-3 font-semibold text-gray-400 uppercase">Marca</label>
           <select
@@ -61,10 +75,12 @@ const Formulario = () => {
           }
           </div>
         </div>
+
+        { error && <Error/> }
         
         <input 
           type="submit" 
-          value="Enviar"
+          value="Cotizar"
           className="py-3 w-full font-semibold bg-indigo-500 hover:bg-indigo-600 rounded-lg transition-colors text-white cursor-pointer uppercase" 
         />
       </form>
